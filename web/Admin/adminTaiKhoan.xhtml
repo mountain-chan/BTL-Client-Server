@@ -95,7 +95,7 @@
                                 <h:outputText value="#{item.isAdmin==true?'Có':'Không'}"/>
                             </p:column>
                             <p:column headerText="Thao Tác" style="width:9%">
-                                <p:commandButton update="sua danh_sach" oncomplete="PF('dialog_sua').show()" title="Sửa" icon="pi pi-refresh" ajax="true">
+                                <p:commandButton update="sua danh_sach" oncomplete="PF('dialog_sua').show()" title="Sửa" icon="pi pi-pencil" ajax="true">
                                     <f:setPropertyActionListener value="#{item}" target="#{beanTaiKhoan.taiKhoan}" />
                                 </p:commandButton>
                                 <p:commandButton update="msg danh_sach" title="Xóa" action="#{beanTaiKhoan.delete(item.tenTaiKhoan)}" icon="pi pi-times" ajax="true">
