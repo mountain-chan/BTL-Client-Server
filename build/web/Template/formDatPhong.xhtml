@@ -6,6 +6,7 @@
 
     <p:dialog id="datphong" widgetVar="dialog_datphong" modal="true" resizable="false" width="600" header="Đặt Phòng" showEffect="fade" hideEffect="fade" closable="true" appendTo="@(body)" style="text-align: center">
         <h:form>
+           
             <div class="form-datphong" style="font-size: 14px; font-weight: bold">
                 <h3 style="color: #0077CC">#{beanNavigation.phongDangDat.ten}</h3>
                 <hr style="margin: 12px 0 12px 0"/>
@@ -67,6 +68,7 @@
                 </div>
                 <p:commandButton value="Đặt Phòng" action="#{beanNavigation.chonDatPhong()}" update="msg form-dsphong" style="width: 40%"/><br/><br/>
             </div>
+
         </h:form>
     </p:dialog>
 
