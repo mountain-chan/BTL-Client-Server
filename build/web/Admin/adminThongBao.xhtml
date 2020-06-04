@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title>Thông báo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    </head>
+    <body>
+        <ui:composition template="AdminTemplate/template.xhtml">
+            <ui:param name="danhmuchoatdong" value="thongbao" />
+            <ui:param name="tieudenoidung" value="Quản lý - Thông báo"/>
+            <ui:define name="content">    
+                <h:form id="tbThongBao">
+                    <p:growl id="msg" life="4000" />
+                    <p:dataTable var="item" rowIndexVar="index" expandedRow="#{item.datPhong.id eq param.tab}"  value="#{beanThongBao.dsThongBao}" rowStyleClass="#{item.datPhong.daHuy ? 'dahuy' : 'datmoi'} dp-#{item.datPhong.id}">
+                        <f:facet name="header">
+                            Tất cả thông báo chi tiết
+                        </f:facet>
+                        <p:column style="width:16px" >
+                            <p:rowToggler   />
+                        </p:column>
+                        <p:column headerText="#"  style="width: 15px;">
+                            <h:outputText   value="#{index+1}" />
+                        </p:column>
+                        <p:column headerText="Tên khách hàng">
+                            <h:outputText value="#{item.taiKhoan.hoTen}" />
+                        </p:column>
+                        <p:column headerText="Số điện thoại">
+                            <h:outputText value="#{item.taiKhoan.soDienThoai}" />
+                        </p:column>
+                        <p:column headerText="Tên phòng">
+                            <h:outputText value="#{item.phong.ten}"/>
+                        </p:column>
+                        <p:column headerText="Ngày đến">
+                            <p:calendar  pattern="dd/MM/yyyy" value="#{item.datPhong.ngayDen}" />
+                        </p:column>
+                        <p:column headerText="Ngày trả">
+                            <p:calendar  pattern="dd/MM/yyyy" value="#{item.datPhong.ngayTra}"  />
+                        </p:column>
+                        <p:column headerText="Trạng thái" sortBy="#{item.datPhong.daHuy}">
+                            <p:selectOneMenu id="console" value="#{item.datPhong.daHuy}" style="width:150px">
+                                <f:selectItem itemLabel="Đã hủy" itemValue="true"/>
+                                <f:selectItem itemLabel="Đặt phòng" itemValue="false"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column headerText="Chức nằng" style="width: 140px;">
+                            <p:commandButton value="Cập nhật" alt="Cập nhật" action="#{beanThongBao.updateDatPhong(item)}" update=":tbThongBao:msg :tbThongBao" process="tbThongBao"  icon="pi pi-refresh" />
+                            <p:commandButton alt="Xóa" action="#{beanThongBao.cancelDatPhong(item)}" update=":tbThongBao:msg :tbThongBao" process="tbThongBao" style="border: 1px solid red; background-color: red;" icon="pi pi-times-circle">
+                                <p:confirm header="Confirmation" message="Bạn có chắc hủy đặt phòng #{item.phong.ten}?" icon="pi pi-exclamation-triangle" />
+                            </p:commandButton>  
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times">
+                                     <p:resetInput target=":#{p:component('tbThongBao')}" />
+                                </p:commandButton>
+                               
+                            </p:confirmDialog> 
+                        </p:column>
+                        <p:rowExpansion>
+                            <f:facet name="header">
+                                <h:outputText value="Chi tiết đặt phòng" />
+                            </f:facet>
+
+                            <p:panelGrid  columns="2" columnClasses="labe2,value1" style="width:400px ;float: right;">
+                                <f:facet name="header">
+                                    <h:outputText value="Chi tiết đặt phòng" />
+                                </f:facet>
+
+                                <h:outputText value="Mã phòng " />
+                                <h:outputText value="#{item.phong.id}" >
+                                </h:outputText>
+
+                                <h:outputText value="Tên phòng " />
+                                <h:outputText value="#{item.phong.ten}" >
+                                </h:outputText>
+
+                                <h:outputText value="Tên Khách sạn " />
+                                <h:outputText value="#{item.phong.tenKhachSan}" >
+                                </h:outputText>
+
+
+                                <h:outputText value="Dịch vụ" />
+                                <h:outputText value="#{item.datPhong.dichVu}"/>
+
+                                <h:outputText value="Thành tiền " />
+                                <h:outputText value="#{item.datPhong.thanhTien}" >
+                                    <f:convertNumber pattern="#,### VNĐ"  locale="es_PE"/>
+                                </h:outputText> 
+
+                            </p:panelGrid>
+
+                            <p:panelGrid  columns="2" columnClasses="label,value" style="width:400px ;float: right; margin-right:2px;">
+                                <f:facet name="header">
+                                    <h:outputText value="Chi tiết khách hàng" />
+                                </f:facet>
+
+                                <h:outputText value="Tên tài khoản" />
+                                <h:outputText value="#{item.taiKhoan.tenTaiKhoan}" />
+
+                                <h:outputText value="Họ tên" />
+                                <h:outputText value="#{item.taiKhoan.hoTen}" />
+
+                                <h:outputText value="Email " />
+                                <h:outputText value="#{item.taiKhoan.email}" style="color:#{car.color}"/>
+
+                                <h:outputText value="Giới tính " />
+                                <h:outputText value="#{item.taiKhoan.gioiTinh? 'Nam' : 'Nữ' }" />
+                                <h:outputText value="Không rõ " />
+                                <h:outputText value="Không rõ" />
+                            </p:panelGrid>
+                        </p:rowExpansion>
+                    </p:dataTable>
+                </h:form>
+
+                <style type="text/css">
+                    .ui-expanded-row-content td{
+                        padding-right: 0px !important;
+                    }
+                    .ui-expanded-row-content td table{
+                        right: -1px;
+                        position: relative;
+                    }
+                    .ui-inputfield , .ui-selectonemenu{
+                        width: 100% !important;
+                    }
+                    .datmoi {
+                        font-weight: 700;
+                        background-color:  #b9b6dc !important;
+                    }
+                </style>
+                <script>
+                    $('html,body').animate({scrollTop: $('.dp-#{param.tab}').offset().top - $('.dp-#{param.tab}').height() - 15});
+                </script>
+
+            </ui:define>
+        </ui:composition> 
+    </body>
+</html>
