@@ -70,11 +70,14 @@
                         </h:form>
                     </p:dialog>
                     <h:form id="form">
-                        <p:dataTable id="danh_sach" var="item" value="#{beanPhong.listPhong}"
+                        <p:dataTable id="danh_sach" var="item" value="#{beanPhong.listSearch}"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                      paginator="true" rows="7" style="margin-bottom:20px" paginatorPosition="top">
                             <f:facet name="{Exporters}">
                                 <div style="float: right; padding-top: 3px">
+                                    <p:inputText style="height: 30px; margin-right: 20px; padding-top: 10px !important" placeholder="Tìm kiếm ..." id="searchValue" value="#{beanPhong.searchValue}">
+                                        <p:ajax event="keyup" update="danh_sach" />
+                                    </p:inputText>
                                     <p:commandButton value="Thêm Mới" update="them" oncomplete="PF('dialog_them').show();" action="#{beanPhong.reset()}" style="margin-right: 20px; height: 30px" icon="pi pi-plus" ajax="true" />          
                                 </div>
                             </f:facet>

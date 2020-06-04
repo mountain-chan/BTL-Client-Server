@@ -18,7 +18,7 @@ public class BeanTaiKhoan implements Serializable {
 
     public BeanTaiKhoan() {
         taiKhoan = new TaiKhoan();
-        listTaiKhoan = dao.DAOTaiKhoan.getAll();
+        listSearch = listTaiKhoan = dao.DAOTaiKhoan.getAll();
     }
 
     public void reset() {
@@ -76,6 +76,19 @@ public class BeanTaiKhoan implements Serializable {
         }
     }
 
+    private String searchValue;
+    private ArrayList<TaiKhoan> listSearch;
+
+    public void setSearchValue(String searchValue) {
+        listSearch = new ArrayList();
+        for (TaiKhoan v : listTaiKhoan) {
+            if (util.VNCharacterUtils.removeAccent(v.getTenTaiKhoan()).toLowerCase().contains(searchValue)) {
+                listSearch.add(v);
+            }
+        }
+        this.searchValue = searchValue;
+    }
+
     //
     // Get - Set, Don't care
     //
@@ -95,4 +108,15 @@ public class BeanTaiKhoan implements Serializable {
         this.listTaiKhoan = listTaiKhoan;
     }
 
+    public String getSearchValue() {
+        return searchValue;
+    }
+
+    public ArrayList<TaiKhoan> getListSearch() {
+        return listSearch;
+    }
+
+    public void setListSearch(ArrayList<TaiKhoan> listSearch) {
+        this.listSearch = listSearch;
+    }
 }

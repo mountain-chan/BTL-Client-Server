@@ -32,7 +32,7 @@ public class BeanLoaiKhachSan implements Serializable {
 
     public BeanLoaiKhachSan() {
         loaiKhachSan = new LoaiKhachSan();
-        listLoaiKhachSan = dao.DAOLoaiKhachSan.getAll();
+        listSearch = listLoaiKhachSan = dao.DAOLoaiKhachSan.getAll();
         hashLoaiKhachSan = new HashMap();
         for (LoaiKhachSan tmp : listLoaiKhachSan) {
             hashLoaiKhachSan.put(tmp.getId(), tmp.getTen());
@@ -68,7 +68,7 @@ public class BeanLoaiKhachSan implements Serializable {
             listLoaiKhachSan.add(tp);
             hashLoaiKhachSan.put(tmp.getId(), tmp.getTen());
             msg.Message.addMessage("Thành Công", "Thêm Loại khách sạn thành công!");
-        }else {
+        } else {
             msg.Message.errorMessage("Thất Bại", "Thêm Loại khách sạn thất bại!");
         }
         PrimeFaces current = PrimeFaces.current();
@@ -99,7 +99,7 @@ public class BeanLoaiKhachSan implements Serializable {
             }
             hashLoaiKhachSan.replace(id, tmp.getTen());
             for (KhachSan ks : lstKS) {
-                if (ks.getIdLoaiKhachSan()== id) {
+                if (ks.getIdLoaiKhachSan() == id) {
                     ks.setTenLoaiKhachSan(tmp.getTen());
                 }
             }
@@ -123,6 +123,19 @@ public class BeanLoaiKhachSan implements Serializable {
         } else {
             msg.Message.errorMessage("Thất Bại", "Xóa Loại khách sạn thất bại!");
         }
+    }
+
+    private String searchValue;
+    private ArrayList<LoaiKhachSan> listSearch;
+
+    public void setSearchValue(String searchValue) {
+        listSearch = new ArrayList();
+        for (LoaiKhachSan v : listLoaiKhachSan) {
+            if (util.VNCharacterUtils.removeAccent(v.getTen()).toLowerCase().contains(searchValue)) {
+                listSearch.add(v);
+            }
+        }
+        this.searchValue = searchValue;
     }
 
     //
@@ -158,6 +171,18 @@ public class BeanLoaiKhachSan implements Serializable {
 
     public void setLstKS(ArrayList<KhachSan> lstKS) {
         this.lstKS = lstKS;
+    }
+
+    public String getSearchValue() {
+        return searchValue;
+    }
+
+    public ArrayList<LoaiKhachSan> getListSearch() {
+        return listSearch;
+    }
+
+    public void setListSearch(ArrayList<LoaiKhachSan> listSearch) {
+        this.listSearch = listSearch;
     }
 
 }

@@ -24,7 +24,7 @@ public class BeanPhong implements Serializable {
         phong = new Phong();
         hashPhongKhachSan = new HashMap();
         hashPhong = new HashMap();
-        listPhong = dao.DAOPhong.getAll();
+        listSearch = listPhong = dao.DAOPhong.getAll();
         for (Phong tmp : listPhong) {
             KhachSan ks = new KhachSan();
             ks.setId(tmp.getIdKhachSan());
@@ -86,6 +86,19 @@ public class BeanPhong implements Serializable {
         }
     }
 
+    private String searchValue;
+    private ArrayList<Phong> listSearch;
+
+    public void setSearchValue(String searchValue) {
+        listSearch = new ArrayList();
+        for (Phong v : listPhong) {
+            if (util.VNCharacterUtils.removeAccent(v.getTen()).toLowerCase().contains(searchValue)) {
+                listSearch.add(v);
+            }
+        }
+        this.searchValue = searchValue;
+    }
+
     //
     // Get - Set, Don't care
     //
@@ -103,6 +116,18 @@ public class BeanPhong implements Serializable {
 
     public void setListPhong(ArrayList<Phong> listPhong) {
         this.listPhong = listPhong;
+    }
+
+    public String getSearchValue() {
+        return searchValue;
+    }
+
+    public ArrayList<Phong> getListSearch() {
+        return listSearch;
+    }
+
+    public void setListSearch(ArrayList<Phong> listSearch) {
+        this.listSearch = listSearch;
     }
 
 }
