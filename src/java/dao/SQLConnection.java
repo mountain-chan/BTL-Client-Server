@@ -9,7 +9,7 @@ public class SQLConnection {
         Connection con = null;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QuanLyKhachSanDb;user=sa;password=123456");
+            con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QuanLyKhachSanDb;integratedSecurity=true");
         } catch (Exception e) {
             System.out.println(e);
         }
