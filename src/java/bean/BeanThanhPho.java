@@ -33,7 +33,7 @@ public class BeanThanhPho implements Serializable {
 
     public BeanThanhPho() {
         thanhPho = new ThanhPho();
-        listSearch = listThanhPho = dao.DAOThanhPho.getAll();
+        listThanhPho = dao.DAOThanhPho.getAll();
         hashThanhPho = new HashMap();
         hashUrlHinhAnhThanhPho = new HashMap();
         for (ThanhPho tmp : listThanhPho) {
@@ -132,15 +132,9 @@ public class BeanThanhPho implements Serializable {
     }
 
     private String searchValue;
-    private ArrayList<ThanhPho> listSearch;
 
     public void setSearchValue(String searchValue) {
-        listSearch = new ArrayList();
-        for (ThanhPho v : listThanhPho) {
-            if (util.VNCharacterUtils.removeAccent(v.getTen()).toLowerCase().contains(searchValue)) {
-                listSearch.add(v);
-            }
-        }
+        listThanhPho = dao.DAOThanhPho.search(searchValue);
         this.searchValue = searchValue;
     }
     
@@ -182,13 +176,4 @@ public class BeanThanhPho implements Serializable {
     public String getSearchValue() {
         return searchValue;
     }
-
-    public ArrayList<ThanhPho> getListSearch() {
-        return listSearch;
-    }
-
-    public void setListSearch(ArrayList<ThanhPho> listSearch) {
-        this.listSearch = listSearch;
-    }
-
 }

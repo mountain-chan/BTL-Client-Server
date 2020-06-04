@@ -33,6 +33,31 @@ public class DAOThanhPho {
         }
         return list;
     }
+    
+    public static ArrayList<ThanhPho> search(String textSearch) {
+        ArrayList<ThanhPho> list = new ArrayList();
+        try {
+            con = SQLConnection.getConnection();
+            PreparedStatement stmt = con.prepareStatement("select T.Id as A, T.Ten as B, T.MoTa as C, "
+                    + "T.UrlHinhAnh as D, count(K.Id) as E from ThanhPho T left join KhachSan K "
+                    + "on T.Id = K.IdThanhPho where T.Ten LIKE ? group by T.Id, T.Ten, T.MoTa, T.UrlHinhAnh");
+            String tmpStr = "%" + textSearch + "%";
+            stmt.setString(1, tmpStr);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                ThanhPho tmp = new ThanhPho();
+                tmp.setId(rs.getInt("A"));
+                tmp.setTen(rs.getString("B"));
+                tmp.setMoTa(rs.getString("C"));
+                tmp.setUrlHinhAnh(rs.getString("D"));
+                tmp.setSoKhachSan(rs.getInt("E"));
+                list.add(tmp);
+            }
+            con.close();
+        } catch (Exception e) {
+        }
+        return list;
+    }
 
     public static boolean insert(ThanhPho tmp) {
         try {

@@ -43,6 +43,41 @@ public class DAOKhachSan {
         }
         return list;
     }
+    
+    public static ArrayList<KhachSan> search(String textSearch) {
+        ArrayList<KhachSan> list = new ArrayList();
+        try {
+            con = SQLConnection.getConnection();
+            PreparedStatement stmt = con.prepareStatement("select K.Id as Id, K.Ten as Ten, DiaChi,"
+                    + "SoDienThoai, CachTrungTam, K.MoTa, GiapBien, DanhGia, BuaAn, IdThanhPho,"
+                    + "T.Ten as TenThanhPho, IdLoaiKhachSan, L.Ten as TenLoaiKhachSan, T.UrlHinhAnh from KhachSan K, ThanhPho T,"
+                    + "LoaiKhachSan L where K.IdThanhPho = T.Id and K.IdLoaiKhachSan = L.Id and K.Ten LIKE ?");
+            String tmpStr = "%" + textSearch + "%";
+            stmt.setString(1, tmpStr);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                KhachSan tmp = new KhachSan();
+                tmp.setId(rs.getInt("Id"));
+                tmp.setTen(rs.getString("Ten"));
+                tmp.setDiaChi(rs.getString("DiaChi"));
+                tmp.setSoDienThoai(rs.getString("SoDienThoai"));
+                tmp.setCachTrungTam(rs.getInt("CachTrungTam"));
+                tmp.setMoTa(rs.getString("MoTa"));
+                tmp.setGiapBien(rs.getBoolean("GiapBien"));
+                tmp.setDanhGia(rs.getInt("DanhGia"));
+                tmp.setBuaAn(rs.getInt("BuaAn"));
+                tmp.setIdThanhPho(rs.getInt("IdThanhPho"));
+                tmp.setTenThanhPho(rs.getString("TenThanhPho"));
+                tmp.setIdLoaiKhachSan(rs.getInt("IdLoaiKhachSan"));
+                tmp.setTenLoaiKhachSan(rs.getString("TenLoaiKhachSan"));
+                tmp.setUrlHinhAnhThanhPho(rs.getString("UrlHinhAnh"));
+                list.add(tmp);
+            }
+            con.close();
+        } catch (Exception e) {
+        }
+        return list;
+    }
 
     public static boolean insert(KhachSan tmp) {
         try {

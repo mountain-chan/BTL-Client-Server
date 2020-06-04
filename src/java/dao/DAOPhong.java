@@ -37,6 +37,35 @@ public class DAOPhong {
         }
         return list;
     }
+    
+    public static ArrayList<Phong> search(String textSearch) {
+        ArrayList<Phong> list = new ArrayList();
+        try {
+            con = SQLConnection.getConnection();
+            PreparedStatement stmt = con.prepareStatement("select P.Id, P.Ten, P.DienTich, P.GiaThue, P.TienNghi, "
+                    + "P.MoTa, P.LoaiGiuong, P.IdKhachSan, K.Ten as TenKhachSan from Phong P, "
+                    + "KhachSan K where P.IdKhachSan=K.Id and P.Ten LIKE ?");
+            String tmpStr = "%" + textSearch + "%";
+            stmt.setString(1, tmpStr);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Phong tmp = new Phong();
+                tmp.setId(rs.getInt("Id"));
+                tmp.setTen(rs.getString("Ten"));
+                tmp.setDienTich(rs.getInt("DienTich"));
+                tmp.setGiaThue(rs.getInt("GiaThue"));
+                tmp.setTienNghi(rs.getString("TienNghi"));
+                tmp.setMoTa(rs.getString("MoTa"));
+                tmp.setLoaiGiuong(rs.getInt("LoaiGiuong"));
+                tmp.setIdKhachSan(rs.getInt("IdKhachSan"));
+                tmp.setTenKhachSan(rs.getString("TenKhachSan"));
+                list.add(tmp);
+            }
+            con.close();
+        } catch (Exception e) {
+        }
+        return list;
+    }
 
     public static boolean insert(Phong tmp) {
         try {

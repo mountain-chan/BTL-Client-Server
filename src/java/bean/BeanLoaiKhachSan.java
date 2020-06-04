@@ -32,7 +32,7 @@ public class BeanLoaiKhachSan implements Serializable {
 
     public BeanLoaiKhachSan() {
         loaiKhachSan = new LoaiKhachSan();
-        listSearch = listLoaiKhachSan = dao.DAOLoaiKhachSan.getAll();
+        listLoaiKhachSan = dao.DAOLoaiKhachSan.getAll();
         hashLoaiKhachSan = new HashMap();
         for (LoaiKhachSan tmp : listLoaiKhachSan) {
             hashLoaiKhachSan.put(tmp.getId(), tmp.getTen());
@@ -126,15 +126,9 @@ public class BeanLoaiKhachSan implements Serializable {
     }
 
     private String searchValue;
-    private ArrayList<LoaiKhachSan> listSearch;
 
     public void setSearchValue(String searchValue) {
-        listSearch = new ArrayList();
-        for (LoaiKhachSan v : listLoaiKhachSan) {
-            if (util.VNCharacterUtils.removeAccent(v.getTen()).toLowerCase().contains(searchValue)) {
-                listSearch.add(v);
-            }
-        }
+        listLoaiKhachSan = dao.DAOLoaiKhachSan.search(searchValue);
         this.searchValue = searchValue;
     }
 
@@ -175,14 +169,6 @@ public class BeanLoaiKhachSan implements Serializable {
 
     public String getSearchValue() {
         return searchValue;
-    }
-
-    public ArrayList<LoaiKhachSan> getListSearch() {
-        return listSearch;
-    }
-
-    public void setListSearch(ArrayList<LoaiKhachSan> listSearch) {
-        this.listSearch = listSearch;
     }
 
 }

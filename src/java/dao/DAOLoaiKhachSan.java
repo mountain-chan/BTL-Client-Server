@@ -33,6 +33,31 @@ public class DAOLoaiKhachSan {
         }
         return list;
     }
+    
+    public static ArrayList<LoaiKhachSan> search(String textSearch) {
+        ArrayList<LoaiKhachSan> list = new ArrayList();
+        try {
+            con = SQLConnection.getConnection();
+            PreparedStatement stmt = con.prepareStatement("select L.Id as A, L.Ten as B, L.MoTa as C, "
+                    + "L.UrlHinhAnh as D, count(L.Id) as E from LoaiKhachSan L left join KhachSan K "
+                    + "on L.Id = K.IdLoaiKhachSan where L.Ten LIKE ? group by L.Id, L.Ten, L.MoTa, L.UrlHinhAnh");
+            String tmpStr = "%" + textSearch + "%";
+            stmt.setString(1, tmpStr);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                LoaiKhachSan tmp = new LoaiKhachSan();
+                tmp.setId(rs.getInt("A"));
+                tmp.setTen(rs.getString("B"));
+                tmp.setMoTa(rs.getString("C"));
+                tmp.setUrlHinhAnh(rs.getString("D"));
+                tmp.setSoKhachSan(rs.getInt("E"));
+                list.add(tmp);
+            }
+            con.close();
+        } catch (Exception e) {
+        }
+        return list;
+    }
 
     public static boolean insert(LoaiKhachSan tmp) {
         try {

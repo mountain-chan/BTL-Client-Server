@@ -33,6 +33,31 @@ public class DAOTaiKhoan {
         }
         return list;
     }
+    
+    public static ArrayList<TaiKhoan> search(String textSearch) {
+        ArrayList<TaiKhoan> list = new ArrayList();
+        try {
+            con = SQLConnection.getConnection();
+            PreparedStatement stmt = con.prepareStatement("select * from TaiKhoan where TenTaiKhoan LIKE ?");
+            String tmpStr = "%" + textSearch + "%";
+            stmt.setString(1, tmpStr);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                TaiKhoan tmp = new TaiKhoan();
+                tmp.setTenTaiKhoan(rs.getString(1));
+                tmp.setMatKhau(rs.getString(2));
+                tmp.setHoTen(rs.getString(3));
+                tmp.setGioiTinh(rs.getBoolean(4));
+                tmp.setSoDienThoai(rs.getString(5));
+                tmp.setEmail(rs.getString(6));
+                tmp.setIsAdmin(rs.getBoolean(7));
+                list.add(tmp);
+            }
+            con.close();
+        } catch (Exception e) {
+        }
+        return list;
+    }
 
     public static TaiKhoan getByDangNhap(String TenTaiKhoan, String MatKhau) {
         TaiKhoan tmp = null;
