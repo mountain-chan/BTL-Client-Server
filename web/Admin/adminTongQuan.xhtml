@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    </head>
+    <body>
+        <ui:composition template="AdminTemplate/template.xhtml">
+            <ui:param name="danhmuchoatdong" value="tongquan" />
+            <ui:param name="tieudenoidung" value="Quản lý - Tổng quan"/>
+            <ui:define name="content">    
+                <div class="col-md-6 col-xl-4" style="padding-top: 33px;">
+                    <div class="card comp-card" >
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h6 class="m-b-25">Lượng khách lưu trú</h6>
+                                    <h3 class="f-w-700 text-c-blue">
+                                        <h:outputText value="#{beanTongQuan.luongKhachLuuTru}">
+                                            <f:convertNumber locale="es_PE"/>
+                                        </h:outputText>
+                                    </h3>
+                                    <p class="m-b-0">
+                                        <h:outputText value="#{session.lastAccessedTime}" rendered="#{session.lastAccessedTime != null}">
+                                            <f:convertDateTime type="date" dateStyle="full" />
+                                        </h:outputText>
+
+                                    </p>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa fa-users bg-c-blue"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card comp-card">
+                        <div class="card-body" >
+                            <div class="row align-items-center">
+
+                                <div class="col">
+                                    <h:form>
+                                        <p:link outcome="adminThongKePhong" >    
+                                            <f:param name="tab" value="1"></f:param>
+                                            <h6 class="m-b-25">
+                                                Số phòng trống
+                                            </h6>
+                                        </p:link>
+                                    </h:form>
+                                    <h3 class="f-w-700 text-c-green">
+                                        <h:outputText value="#{beanTongQuan.soPhongTrong}" >
+                                            <f:convertNumber locale="es_PE"/>
+                                        </h:outputText>
+                                    </h3>
+                                    <p class="m-b-0">
+                                        <h:outputText value="#{session.lastAccessedTime}" rendered="#{session.lastAccessedTime != null}">
+                                            <f:convertDateTime type="date" dateStyle="full" />
+                                        </h:outputText>
+                                    </p>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa fa-ban bg-c-green"></i>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card comp-card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h6 class="m-b-25">Tổng số phòng</h6>
+                                    <h3 class="f-w-700 text-c-yellow">
+                                        <h:outputText value="#{beanTongQuan.tongSoPhong}">
+                                            <f:convertNumber locale="es_PE"/>
+                                        </h:outputText>
+                                    </h3>
+                                    <p class="m-b-0">
+                                        <h:outputText value="#{session.lastAccessedTime}">
+                                            <f:convertDateTime type="date" dateStyle="full" />
+                                        </h:outputText>
+                                    </p>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa fa-hotel bg-c-yellow"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-8" style="width: 100%; padding-left: 20px;">    
+                    <p:chart type="bar" model="#{beanTongQuan.barKhachTheoTinh}" style="height:270px"/>
+
+                    <p:chart type="pie" model="#{beanTongQuan.piePhongTheoTinh}" style="margin-left: 5px;height:260px" />
+                </div>
+                <br/>
+
+                <style type="text/css">
+                    h6{
+                        font-size: 14px !important;
+                    }
+                    .page-header{
+                        margin-bottom: 0px !important; 
+                    }
+                </style>
+            </ui:define>
+        </ui:composition> 
+    </body>
+</html>

@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="../../Content/css/bstrap/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../../Content/css/csadmin/style.css"  />
+        <link rel="stylesheet" href="../../Content/css/csadmin/loadfont.css" />
+        <link rel="stylesheet" href="../../Content/css/csadmin/fontawesome-all.css"/>
+        <link rel="stylesheet" href="../../Content/css/thongke.css"/>
+        
+
+        <script src="../../Content/js/csadmin/bootstrap.bundle.js"></script>
+        <script src="../../Content/js/csadmin/jquery.slimscroll.js"></script>
+        <script src="../../Content/js/csadmin/main-js.js"></script>
+    </h:head>
+
+    <h:body>
+        <div class="dashboard-main-wrapper">
+
+            <ui:include src="webheader.xhtml" />
+
+            <ui:include src="navleft.xhtml">
+                <ui:param name="danhmuchoatdong" value="#{danhmuchoatdong}" />  
+            </ui:include>
+
+            <div class="dashboard-wrapper">
+                <div class="dashboard-ecommerce">
+                    <div class="container-fluid dashboard-content ">
+                        <!-- page header  -->
+                        <div class="row">
+                            <ui:include src="pageheader.xhtml" >
+                                <!-- ============================================================== -->
+                                <!-- Content header page -->
+                                <!-- ============================================================== -->
+                                <ui:param name="tieudenoidung" value="#{tieudenoidung}" />  
+                            </ui:include>
+                        </div>
+
+                        <!-- page content -->  
+                        <div class="ecommerce-widget">
+                            <div class="row">
+                                <ui:insert name="content">
+                                    <!-- ============================================================== -->
+                                    <!-- Insert content -->
+                                    <!-- ============================================================== -->
+                                </ui:insert>
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:body>
+
+</html>

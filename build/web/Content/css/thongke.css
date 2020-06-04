@@ -1,0 +1,61 @@
+
+.text-c-blue {
+    color: #4099ff;
+}
+.text-c-green {
+    color: #2ed8b6;
+}
+.text-c-yellow {
+    color:  #FFB64D;
+}
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 5px 0 rgba(43,43,43,0.1), 0 11px 6px -7px rgba(43,43,43,0.1);
+    box-shadow: 0 0 5px 0 rgba(43,43,43,0.1), 0 11px 6px -7px rgba(43,43,43,0.1);
+    border: none;
+    margin-bottom: 14px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.comp-card i {
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    text-align: center;
+    padding: 17px 0;
+    font-size: 18px;
+    text-shadow: 0 6px 8px rgba(62, 57, 107, 0.18);
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.bg-c-blue {
+    background: #4099ff;
+}
+.bg-c-green {
+    background: #2ed8b6;
+}
+.bg-c-yellow {
+    background: #FFB64D;
+}
+.fa, .fas {
+    font-weight: 900;
+}
+.fa, .fab, .fal, .far, .fas {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+.align-items-center{
+    min-height: 110px;
+}
+.h6{
+    font-size: 14px  !important;
+    font-family: monospace !important;
+}
+
+

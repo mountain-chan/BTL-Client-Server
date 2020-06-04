@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <div class="nav-left-sidebar sidebar-dark">
+        <div class="menu-list">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav flex-column">
+                        <li class="nav-divider">
+                            Menu
+                        </li>
+                        <li class="nav-item ">
+                            <h:link  outcome="adminTongQuan.xhtml" class="tongquan nav-link" >
+                                <i class ="fa fa-fw fa-home"></i>Tổng quan
+                            </h:link>
+                        </li>
+                        <li class="nav-item ">
+                            <h:link  outcome="adminThongBao.xhtml" class="thongbao nav-link" >
+                                <i class ="fa fa-fw fa-bell"></i>Thông báo
+                            </h:link>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2">
+                                <i class="fa fa-fw fa-chart-bar"></i>Thống kê
+                            </a>
+                            <div id="submenu-2" class="collapse submenu" style="">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <h:link  outcome="adminThongKePhong.xhtml" class="tkphong nav-link" >
+                                            <i class ="fa fa-fw fa-arrow-right"></i> TK Phòng
+                                        </h:link>
+                                    </li>
+                                    <li class="nav-item">
+                                        <h:link  outcome="adminThongKeDatPhong.xhtml" class="tkdatphongdoanhthu nav-link" >
+                                            <i class ="fa fa-fw fa-arrow-right"></i> TK Dặt phòng doanh thu
+                                        </h:link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                       
+                        <li class="nav-divider">
+                            Quản lý
+                        </li>
+                        <li class="nav-item ">
+                            <h:link  outcome="adminTaiKhoan.xhtml" class="taikhoan nav-link" >
+                                <i class ="fa fa-fw fa-user-circle"></i>Tài Khoản
+                            </h:link>
+                        </li>
+                        <li class="nav-item ">
+                            <h:link  outcome="adminThanhPho.xhtml" class="thanhpho nav-link " >
+                                <i class ="fa fa-fw fa-hospital-alt"></i>Thành Phố
+                            </h:link>
+                        </li>
+                        <li class="nav-item ">
+                            <h:link  outcome="adminLoaiKhachSan.xhtml" class="loaikhachsan nav-link" >
+                                <i class ="fa fa-fw fa-list"></i>Loại Khách Sạn
+                            </h:link>
+                        </li>
+                        <li class="nav-item ">
+                            <h:link  outcome="adminKhachSan.xhtml" class="khachsan nav-link" >
+                                <i class ="fa fa-fw fa-building"></i>Khách Sạn
+                            </h:link>
+                        </li>
+                        <li class="nav-item ">
+                            <h:link  outcome="adminPhong.xhtml" class="phong nav-link" >
+                                <i class ="fa fa-fw fa-bed"></i>Phòng
+                            </h:link>
+                        </li>
+                    </ul>
+                </div>
+                <script type="text/javascript">
+
+                    var taga = $('.#{danhmuchoatdong}');
+                    var count = 0;
+                    do {
+                        taga.addClass('active');
+                        var ulnearness = taga.closest('ul');
+                        var linearness = ulnearness.closest('li');
+                        var divsubmenu = linearness.find(".submenu")[0];
+                        $(divsubmenu).addClass('show');
+                        taga = linearness.find("a")[0];
+                        $(taga).removeClass('collapsed');
+                        count++;
+                    } while (count > 3);
+
+                </script>
+            </nav>
+        </div>
+    </div>
+</html>
