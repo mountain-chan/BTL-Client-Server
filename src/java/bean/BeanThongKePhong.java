@@ -10,7 +10,6 @@ import java.util.Locale;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-
 // Sử dụng @ViewScoped thay cho @RequestScoped giúp giữ giá trị thay đổi khi sử dụng ajax 
 @ManagedBean(name = "beanThongKePhong")
 @ViewScoped
@@ -27,7 +26,9 @@ public final class BeanThongKePhong {
     private uPhongT phongTChon;
 
     // Thời gian lấy dũ liệu
-    private Date ngayLay;
+    private Date ngayLayPhongSuDung;
+    private Date ngayLayPhongTrong;
+
     private Integer tabHoatDong;
 
     // Có 3 trạng thái : 0 bằng , 1 lớn hơn , 2 nhỏ hơn 
@@ -40,21 +41,29 @@ public final class BeanThongKePhong {
 
     //Khởi tạo và load dữ liệu
     private void initDuLieu() {
-        ngayLay = new Date();
+        ngayLayPhongTrong = new Date();
+        ngayLayPhongSuDung = new Date();
         // mặc định là so sánh bằng ;
         dauNgayDen = 0;
         dauNgayTra = 0;
-        dsPhongTrong = dao.DAOThongKe.getDSPhongTrong(ngayLay);
-        dsPhongSD = dao.DAOThongKe.getDSPhongSuDung(ngayLay);
-       
+        dsPhongTrong = dao.DAOThongKe.getDSPhongTrong(ngayLayPhongTrong);
+        dsPhongSD = dao.DAOThongKe.getDSPhongSuDung(ngayLayPhongSuDung);
+
     }
 
     //Thay đổi ngày lấy danh sách + cập nhật danh sách lọc
-    public void changeNgayLay() {
-        dsPhongTrong = dao.DAOThongKe.getDSPhongTrong(ngayLay);
-        dsPhongSD = dao.DAOThongKe.getDSPhongSuDung(ngayLay);
+    public void changeNgayLaySuDung() {
+        dsPhongSD = dao.DAOThongKe.getDSPhongSuDung(ngayLayPhongSuDung);
         filteredPhongSDs = dsPhongSD;
+    }
+
+    public void changeNgayLayPhongTrong() {
+        dsPhongTrong = dao.DAOThongKe.getDSPhongTrong(ngayLayPhongTrong);
         filteredPhongTrongs = dsPhongTrong;
+    }
+
+    public void change() {
+
     }
 
     public boolean filterNgayDen(Object ngaySoSanh, Object ngayLoc, Locale locale) {
@@ -155,14 +164,6 @@ public final class BeanThongKePhong {
         this.filteredPhongSDs = filteredPhongSDs;
     }
 
-    public Date getNgayLay() {
-        return ngayLay;
-    }
-
-    public void setNgayLay(Date ngayLay) {
-        this.ngayLay = ngayLay;
-    }
-
     public uPhongSD getPhongSDChon() {
         return phongSDChon;
     }
@@ -203,4 +204,19 @@ public final class BeanThongKePhong {
         this.tabHoatDong = tabHoatDong;
     }
 
+    public Date getNgayLayPhongSuDung() {
+        return ngayLayPhongSuDung;
+    }
+
+    public void setNgayLayPhongSuDung(Date ngayLayPhongSuDung) {
+        this.ngayLayPhongSuDung = ngayLayPhongSuDung;
+    }
+
+    public Date getNgayLayPhongTrong() {
+        return ngayLayPhongTrong;
+    }
+
+    public void setNgayLayPhongTrong(Date ngayLayPhongTrong) {
+        this.ngayLayPhongTrong = ngayLayPhongTrong;
+    }
 }
