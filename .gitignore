@@ -1,4 +1,3 @@
-#ignore file 
-src/java/dao/SQLConnection.java
-test
 build
+test
+src/java/dao/SQLConnection.java
