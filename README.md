@@ -1,4 +1,4 @@
-# BTL Công Nghệ Client Sẻver
+# BTL Công Nghệ Client Server
 
 Quản Lý Khách Sạn - Hotel Booking By Java
 
